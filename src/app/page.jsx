@@ -45,6 +45,7 @@ console.log(y);`);
 
   const handleAnalyze = async () => {
     setError(null);
+    setResult(null);
     setLoading(true);
     try {
       const response = await fetch("/api/analyze", {
@@ -54,14 +55,17 @@ console.log(y);`);
       });
 
       if (!response.ok) {
-        throw new Error("Failed to analyze code");
+        const errorData = await response
+          .json()
+          .catch(() => ({ error: "Failed to analyze code" }));
+        throw new Error(errorData.error || "Failed to analyze code");
       }
 
       const data = await response.json();
       setResult(data);
     } catch (error) {
       console.error(error);
-      setError("Unable to analyze code. Please try again.");
+      setError(error.message || "Unable to analyze code. Please try again.");
     } finally {
       setLoading(false);
     }

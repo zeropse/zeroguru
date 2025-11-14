@@ -1,8 +1,29 @@
+import { RateLimiterMemory } from "rate-limiter-flexible";
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+const rateLimiter = new RateLimiterMemory({
+  keyPrefix: "analyze_api",
+  points: 2,
+  duration: 1 * 60,
+});
+
 export async function POST(request) {
+  const ip =
+    request.headers.get("x-forwarded-for") ||
+    request.headers.get("x-real-ip") ||
+    "127.0.0.1";
+
+  try {
+    await rateLimiter.consume(ip);
+  } catch (rejRes) {
+    return Response.json(
+      { error: "Too many requests, please try again later." },
+      { status: 429 }
+    );
+  }
+
   try {
     const { code, language } = await request.json();
 
@@ -20,19 +41,21 @@ export async function POST(request) {
       );
     }
 
-    const prompt = `Analyze the following ${language} code and provide a JSON response with the following structure:
+    const prompt = `Analyze the following ${language} code and provide a detailed explanation of what the code does, including its logic, flow, and purpose. Then, break down the execution into step-by-step actions.
+
+Provide a JSON response with the following structure:
 {
-  "explanation": "string",
+  "explanation": "A comprehensive explanation of the code's functionality, logic, and purpose",
   "steps": [
     {
       "line": number,
-      "description": "string",
+      "description": "Detailed description of what happens at this line",
       "type": "assignment|condition|loop|function_call|return|print|other"
     }
   ]
 }
 
-Return ONLY the JSON object, no additional text.
+Return ONLY the JSON object, no additional text or markdown.
 
 Code:
 ${code}`;
