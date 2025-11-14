@@ -14,6 +14,12 @@ _Main interface with code editor and language selection_
 ![Example Analysis](assets/example.png)
 _AI-generated code analysis and execution flow visualization_
 
+## Links
+
+[Devpost Submission](https://devpost.com/software/zeroguru)
+
+[Demo Video](https://youtu.be/gkv1r3OFQ0k?si=rG1-8m-004kMfKZ2)
+
 ## Features
 
 - **AI-Powered Code Analysis**: Input code in multiple programming languages and receive detailed, AI-generated explanations of functionality, logic, and purpose
