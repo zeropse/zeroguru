@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Zeroguru",
+  title: "ZeroGuru",
   description: "AI-powered code analysis and explanation tool",
 };
 
