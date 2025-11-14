@@ -22,105 +22,9 @@ import {
   IconAlertCircle,
   IconArrowRight,
   IconLoader,
-  IconCode,
 } from "@tabler/icons-react";
 import CodeEditor from "@/components/code-editor";
-
-function ExecutionFlowVisualization({ steps }) {
-  const nodeHeight = 80;
-  const nodeWidth = 280;
-  const containerHeight = Math.max(500, steps.length * (nodeHeight + 40) + 40);
-
-  return (
-    <svg
-      width="100%"
-      height={containerHeight}
-      viewBox={`0 0 400 ${containerHeight}`}
-      className="w-full"
-      style={{ backgroundColor: "var(--muted)" }}
-    >
-      {/* Draw connecting lines */}
-      {steps.slice(0, -1).map((_, index) => (
-        <g key={`line-${index}`}>
-          {/* Vertical line with arrow */}
-          <line
-            x1="200"
-            y1={60 + index * (nodeHeight + 40)}
-            x2="200"
-            y2={80 + (index + 1) * (nodeHeight + 40)}
-            stroke="var(--border)"
-            strokeWidth="2"
-            strokeDasharray="5,5"
-          />
-          {/* Arrow head */}
-          <polygon
-            points="200,85 195,75 205,75"
-            fill="var(--muted-foreground)"
-          />
-        </g>
-      ))}
-
-      {/* Draw nodes */}
-      {steps.map((step, index) => {
-        const yPos = 20 + index * (nodeHeight + 40);
-        return (
-          <g key={`step-${index}`}>
-            {/* Node background */}
-            <rect
-              x="60"
-              y={yPos}
-              width={nodeWidth}
-              height={nodeHeight}
-              rx="8"
-              fill="var(--card)"
-              stroke="var(--border)"
-              strokeWidth="1"
-            />
-
-            {/* Line number badge */}
-            <circle
-              cx="95"
-              cy={yPos + 20}
-              r="14"
-              fill="var(--primary)"
-              opacity="0.1"
-            />
-            <text
-              x="95"
-              y={yPos + 25}
-              textAnchor="middle"
-              className="text-xs font-semibold"
-              fill="var(--primary)"
-            >
-              {step.line}
-            </text>
-
-            {/* Description text */}
-            <text
-              x="120"
-              y={yPos + 20}
-              className="text-sm font-medium"
-              fill="var(--foreground)"
-              style={{ wordWrap: "break-word" }}
-            >
-              {step.description.substring(0, 40)}
-            </text>
-            {step.description.length > 40 && (
-              <text
-                x="120"
-                y={yPos + 40}
-                className="text-sm font-medium"
-                fill="var(--foreground)"
-              >
-                {step.description.substring(40, 80)}...
-              </text>
-            )}
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
+import ExecutionFlowVisualization from "@/components/execution-flow-visualization";
 
 export default function Home() {
   const [code, setCode] = useState(`const x = 2;
@@ -165,21 +69,6 @@ console.log(y);`);
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <div className="border-b border-border/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-8 text-center">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <IconCode className="h-5 w-5 text-primary" />
-            </div>
-            <h1 className="text-3xl font-bold tracking-tight">ZeroGuru</h1>
-          </div>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            AI-powered code analysis and execution flow visualization
-          </p>
-        </div>
-      </div>
-
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         {error && (
