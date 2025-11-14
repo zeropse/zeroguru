@@ -4,7 +4,6 @@ import {
   IconBrandLinkedin,
   IconBrandGithub,
 } from "@tabler/icons-react";
-import { motion } from "motion/react";
 
 const socialLinks = [
   {
@@ -36,18 +35,16 @@ export function Footer() {
         </div>
         <div className="flex-1 flex justify-end items-center space-x-4">
           {socialLinks.map(({ href, label, icon: Icon, className }) => (
-            <motion.a
+            <a
               key={label}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="transition duration-200 ease-in-out transform hover:scale-105 hover:rotate-3"
             >
-              {Icon && <Icon className={`h-6 w-6 transition ${className}`} />}
-            </motion.a>
+              {Icon && <Icon className={`h-6 w-6 ${className}`} />}
+            </a>
           ))}
         </div>
       </div>

@@ -1,7 +1,5 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
-import Editor from "@monaco-editor/react";
 import {
   Card,
   CardContent,
@@ -26,6 +24,7 @@ import {
   IconLoader,
   IconCode,
 } from "@tabler/icons-react";
+import CodeEditor from "@/components/code-editor";
 
 function ExecutionFlowVisualization({ steps }) {
   const nodeHeight = 80;
@@ -124,10 +123,10 @@ function ExecutionFlowVisualization({ steps }) {
 }
 
 export default function Home() {
-  const [code, setCode] = useState(`x = 2
-y = x + 3
-print(y)`);
-  const [language, setLanguage] = useState("python");
+  const [code, setCode] = useState(`const x = 2;
+const y = x + 3;
+console.log(y);`);
+  const [language, setLanguage] = useState("javascript");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -228,21 +227,11 @@ print(y)`);
                   </Select>
                 </div>
 
-                <div className="rounded-lg border border-border/50 overflow-hidden">
-                  <Editor
-                    height="350px"
-                    language={language}
-                    value={code}
-                    onChange={(value) => setCode(value || "")}
-                    theme="vs-dark"
-                    options={{
-                      minimap: { enabled: false },
-                      fontSize: 14,
-                      lineHeight: 1.6,
-                      padding: { top: 16, bottom: 16 },
-                    }}
-                  />
-                </div>
+                <CodeEditor
+                  value={code}
+                  onChange={setCode}
+                  language={language}
+                />
 
                 <Button
                   onClick={handleAnalyze}
