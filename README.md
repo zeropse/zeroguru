@@ -37,7 +37,7 @@ _AI-generated code analysis and execution flow visualization_
 
 ## How It Works
 
-1. **Code Input**: Select a programming language from the dropdown and enter your code in the Monaco editor
+1. **Code Input**: Select a programming language from the dropdown and enter code in the Monaco editor
 2. **AI Analysis**: Click "Analyze Code" to send the code to the backend API
 3. **Gemini API Processing**: The server uses Google's Gemini AI to generate a structured JSON response containing:
    - A comprehensive explanation of the code's functionality and logic
@@ -47,9 +47,17 @@ _AI-generated code analysis and execution flow visualization_
 ## Usage
 
 1. Select a programming language from the dropdown
-2. Enter your code in the Monaco editor
+2. Enter code in the Monaco editor
 3. Click "Analyze Code" to get AI analysis
 4. View the detailed explanation and execution flow visualization
+
+## Challenges I ran into
+
+One of the main challenges was integrating the Gemini AI API effectively to generate structured JSON responses for code analysis and execution flows. Ensuring the AI output was consistent and parseable required careful prompt engineering. Another challenge was implementing the interactive flow visualization with React Flow, particularly handling complex code structures and making the diagrams intuitive. Rate limiting implementation also required careful consideration to balance user experience with API protection.
+
+## What I learned
+
+Through building ZeroGuru, I gained deep insights into AI integration, particularly working with large language models like Gemini for code analysis. I learned about prompt engineering techniques to generate structured outputs. The project also taught us about modern React development with Next.js 16 and React 19, as well as working with complex visualization libraries like React Flow.
 
 ## Rate Limiting
 
@@ -60,4 +68,4 @@ _AI-generated code analysis and execution flow visualization_
 
 **Project Lead & Developer**: zeropse (solo project)
 
-This project was built entirely by zeropse as an individual effort.
+This project was built entirely by me.
