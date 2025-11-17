@@ -2,11 +2,12 @@
 
 import { IconCode } from "@tabler/icons-react";
 import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <div className="border-b border-border/50 backdrop-blur-sm">
       <div className="container mx-auto px-4 py-8 text-center">
@@ -33,6 +34,14 @@ export default function Header() {
         >
           FAQs
         </Button>
+        {pathname === "/faqs" && (
+          <Button
+            onClick={() => router.push("/")}
+            className="cursor-pointer hover:scale-105 transition-transform"
+          >
+            Back
+          </Button>
+        )}
       </div>
     </div>
   );
